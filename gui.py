@@ -2,7 +2,7 @@ import sys
 from datetime import datetime, timedelta
 
 from PyQt6 import QtWidgets, uic
-from PyQt6.QtCore import pyqtSignal, QThread, QDate
+from PyQt6.QtCore import pyqtSignal, QThread, QDate, Qt
 from PyQt6.QtGui import QIntValidator
 from PyQt6.QtWidgets import QMessageBox, QFileDialog
 
@@ -85,6 +85,30 @@ class SearchHotel:
         self.win.sort.setCurrentItem(win.sort.item(0))
 
         self.win.save.setEnabled(False)
+
+        self._setting_scroll_search()
+
+    def _setting_scroll_search(self):
+        """Настройка прокрутки бокового меню фильтров."""
+        for list_widget in self.win.groups_search.findChildren(
+            QtWidgets.QListWidget
+        ):
+            frame = 2 * list_widget.frameWidth()
+            height = frame
+            for row in range(list_widget.count()):
+                height += list_widget.sizeHintForRow(row)
+            list_widget.setFixedHeight(height)
+            list_widget.setMinimumWidth(list_widget.sizeHintForColumn(0) + frame)
+            list_widget.setVerticalScrollBarPolicy(
+                Qt.ScrollBarPolicy.ScrollBarAlwaysOff
+            )
+            list_widget.setHorizontalScrollBarPolicy(
+                Qt.ScrollBarPolicy.ScrollBarAlwaysOff
+            )
+        scroll_bar_width = self.win.scroll_search.verticalScrollBar().sizeHint().width()
+        self.win.scroll_search.setFixedWidth(
+            self.win.groups_search.sizeHint().width() + scroll_bar_width
+        )
 
     def data_output_table(self, data) -> None:
         """Выводит данные в таблицу."""
