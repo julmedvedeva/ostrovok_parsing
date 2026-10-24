@@ -26,7 +26,17 @@
      </widget>
     </item>
     <item>
-     <widget class="QWidget" name="groups_search" native="true">
+     <widget class="QScrollArea" name="scroll_search">
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+     <widget class="QWidget" name="groups_search">
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <property name="spacing">
         <number>5</number>
@@ -922,6 +932,7 @@
         </widget>
        </item>
       </layout>
+     </widget>
      </widget>
     </item>
     <item>
